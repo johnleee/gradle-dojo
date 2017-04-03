@@ -1,0 +1,29 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath(
+            'org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE'
+        )
+    }
+}
+
+apply plugin: 'java'            // java plugin
+apply plugin: 'spring-boot'     // springboot plugin
+
+sourceCompatibility = 1.8       // compilation JDK used
+targetCompatibility = 1.8       // runtime JDK used
+
+repositories {                  // repositories
+    mavenCentral()
+}
+
+test {                      // this is to show system.out.println in test methods. default is off
+    testLogging.showStandardStreams = true
+}
+
+apply from: 'gradle/conf/boot.gradle'
+apply from: 'gradle/conf/misc.gradle'
+
+apply from: 'gradle/conf/test/unit.gradle'

@@ -1,0 +1,12 @@
+task kata03T01 {
+	doLast {
+		println "This is first task"	
+	}   
+}
+
+task kata03T02 {
+	doLast {
+		println "This is myTask"
+	}
+} 
+kata03T02.dependsOn kata03T01
