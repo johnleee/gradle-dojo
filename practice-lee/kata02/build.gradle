@@ -1,0 +1,9 @@
+task kata02
+
+kata02.doFirst( {
+	println "This is done first"
+});
+
+kata02.doLast({
+	println "This is done last"
+});

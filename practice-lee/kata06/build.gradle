@@ -1,0 +1,70 @@
+apply plugin: 'application'
+apply plugin: 'java'            // java plugin
+
+group = 'com.gradle.example'    // group name
+version = '1.0-SNAPSHOT'        // version of the created jar
+
+// project multiline description
+description ="""
+More detailed description
+Project name: ${project.name}
+More detailed information here... """
+
+sourceCompatibility = 1.8       // compilation JDK used
+targetCompatibility = 1.8       // runtime JDK used
+
+repositories {                  // repositories
+    mavenCentral()
+
+    /* Local repositories
+    maven {
+       url "http://adesa.localrepo.com/"
+    }*/
+
+    /* Specific folders
+    flatDir {
+        dirs 'libA', 'libB'
+    }*/
+}
+
+dependencies {              // dependencies
+    compile 'log4j:log4j:1.2.17'
+    testCompile 'junit:junit:4.11'
+    /*
+    dependency configurations:
+        compile
+        runtime
+        testCompile
+        testRuntime
+    */
+    /* Tree recursive folders
+    compile fileTree(dir: 'libs', include: ['*.jar']) 
+    */
+}
+
+test {                      // this is to show system.out.println in test methods. default is off
+    testLogging.showStandardStreams = true
+}
+
+mainClassName = 'HelloWorld'
+
+/* regular gradle copy task
+task copyLicense(type: Copy) {
+    from "LICENSE"
+    into "$buildDir"
+}*/
+// Copy specifically for distribution purpose
+task copyLicense {                          // Configure the location of the license file by using the from() method of the CopySpec interface and pass the output of the copyLicense task as method parameter.
+    outputs.file new File("$buildDir/LICENSE")
+    doLast {
+        copy {
+            from "LICENSE"
+            into "$buildDir"
+        }
+    }
+}
+ 
+applicationDistribution.from(copyLicense) {     //Configure the target directory by using the into() method of the CopySpec interface and pass an empty String as a method parameter.
+    into ""
+}
+

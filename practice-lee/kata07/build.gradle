@@ -1,0 +1,43 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath(
+            'org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE'
+        )
+    }
+}
+
+apply plugin: 'java'            // java plugin
+apply plugin: 'spring-boot'     // springboot plugin
+
+group = 'com.gradle.example'    // group name
+version = '1.0-SNAPSHOT'        // version of the created jar
+
+// project multiline description
+description ="""
+More detailed description
+Project name: ${project.name}
+More detailed information here... """
+
+sourceCompatibility = 1.8       // compilation JDK used
+targetCompatibility = 1.8       // runtime JDK used
+
+repositories {                  // repositories
+    mavenCentral()
+}
+
+dependencies {                  // dependencies
+    compile(
+        'log4j:log4j:1.2.17',
+        'junit:junit:4.11',
+        'org.springframework.boot:spring-boot-starter-actuator',
+        'org.springframework.boot:spring-boot-starter-web',
+        'org.springframework.boot:spring-boot-starter-test'
+    )
+}
+
+test {                      // this is to show system.out.println in test methods. default is off
+    testLogging.showStandardStreams = true
+}
